@@ -204,6 +204,9 @@ read.fh <- function(fname, BC_correction = FALSE) {
     portion.start <- header.end[i] + 1
     portion.end <- data.end[i] - 1
     n.expected <- end.years[i] - start.years[i] + 1
+    if (n.expected < 0) {
+      stop(gettext("Series ", keycodes[i], " has an end date before the start date"))
+    }
     if (portion.end < portion.start) {
       stop(gettextf("in series %s: ", keycodes[i], domain="R-dplR"),
            gettextf("too few values (expected %d, got %d)",
